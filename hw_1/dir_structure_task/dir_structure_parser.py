@@ -4,10 +4,9 @@ import os
 
 
 def create_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(add_help=False)
+    description = 'Для получения древовидной структуры папки - укажите полный путь к ней в параметре name'
+    parser = argparse.ArgumentParser(description=description)
     parser.add_argument('-n', '--name', required=True)
-    help_text = 'Для получения древовидной структуры папки - укажите полный путь к ней в параметре name'
-    parser.add_argument('-h', '--help', action='help', default=argparse.SUPPRESS, help=help_text)
     return parser
 
 
