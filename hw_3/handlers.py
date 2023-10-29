@@ -1,11 +1,12 @@
 import json
 from http import HTTPStatus
+from typing import List
 import error_handlers
 from utils import parse_query_string
 from github_worker import GithubWorker
 
 
-def main(environ, start_response):
+def main(environ: dict, start_response) -> List[bytes]:
     if environ['REQUEST_METHOD'] != 'GET':
         return error_handlers.method_not_allowed(start_response)
 
@@ -33,7 +34,7 @@ def main(environ, start_response):
     return [bytes_resp]
 
 
-def repos(environ, start_response):
+def repos(environ: dict, start_response) -> List[bytes]:
     if environ['REQUEST_METHOD'] != 'GET':
         return error_handlers.method_not_allowed(start_response)
 

@@ -1,7 +1,8 @@
 import json
+from typing import List
 
 
-def bad_request(start_response, err_text=None):
+def bad_request(start_response, err_text: str = None) -> List[bytes]:
     resp = json.dumps({
         'error': err_text or 'Ошибка запроса',
         'status': 400
@@ -11,7 +12,7 @@ def bad_request(start_response, err_text=None):
     return [bytes_resp]
 
 
-def method_not_allowed(start_response, err_text=None):
+def method_not_allowed(start_response, err_text: str = None) -> List[bytes]:
     resp = json.dumps({
         'error': err_text or 'Для приложения доступен только метод GET',
         'status': 405
@@ -21,7 +22,7 @@ def method_not_allowed(start_response, err_text=None):
     return [bytes_resp]
 
 
-def page_not_found(start_response, err_text=None):
+def page_not_found(start_response, err_text: str = None) -> List[bytes]:
     resp = json.dumps({
         'error': err_text or 'Страница не найдена',
         'status': 404
@@ -32,7 +33,7 @@ def page_not_found(start_response, err_text=None):
     return [bytes_resp]
 
 
-def unauthorized(start_response, err_text=None):
+def unauthorized(start_response, err_text: str = None) -> List[bytes]:
     resp = json.dumps({
         'error': err_text or 'Пользователь не авторизован',
         'status': 401

@@ -1,4 +1,4 @@
-def parse_query_string(query_string):
+def parse_query_string(query_string: str) -> dict:
     if not query_string:
         return {}
     query_args = query_string.split('&')

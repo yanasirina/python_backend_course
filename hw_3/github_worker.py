@@ -5,14 +5,14 @@ from urllib.parse import urljoin
 class GithubWorker:
     BASE_URL = 'https://api.github.com/user'
 
-    def __init__(self, github_token):
+    def __init__(self, github_token: str):
         self.github_token = github_token
 
     def get_repos(self):
         response = self._request(path='user/repos')
         return response
 
-    def get_repo_subscribers(self, user, repo_name):
+    def get_repo_subscribers(self, user: str, repo_name: str):
         response = self._request(path=f'repos/{user}/{repo_name}/subscribers')
         return response
 
@@ -25,7 +25,7 @@ class GithubWorker:
         else:
             response.raise_for_status()
 
-    def _get_headers(self):
+    def _get_headers(self) -> dict:
         headers = {
             'Authorization': f'Bearer {self.github_token}'
         }
