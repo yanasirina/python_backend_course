@@ -2,6 +2,7 @@ import json
 from http import HTTPStatus
 import error_handlers
 from utils import parse_query_string
+from github_worker import GithubWorker
 
 
 def main(environ, start_response):
@@ -35,12 +36,23 @@ def main(environ, start_response):
 def repos(environ, start_response):
     if environ['REQUEST_METHOD'] != 'GET':
         return error_handlers.method_not_allowed(start_response)
-    if not environ.get('HTTP_AUTHORIZATION'):
+
+    token = environ.get('HTTP_AUTHORIZATION')
+    github = GithubWorker(github_token=token)
+    if not token or not github.is_token_correct():
         return error_handlers.unauthorized(start_response)
 
-    resp = json.dumps({
-        'detail': 'Repos'
-    })
+    user_repos = github.get_repos()
+    serialized_repos = [
+        {
+            'name': repo['name'],
+            'repo_url': repo['html_url'],
+            'visibility': repo['visibility'],
+            'subscribers_count': len(github.get_repo_subscribers(user=repo['owner']['login'], repo_name=repo['name'])),
+            'size': repo['size'],
+        } for repo in user_repos
+    ]
+    resp = json.dumps(serialized_repos)
     bytes_resp = bytes(resp, 'utf-8')
     start_response('200 OK', [('Content-Type', 'application/json')])
     return [bytes_resp]
