@@ -51,7 +51,7 @@ class Student(User):
 
     @staticmethod
     def _get_other_average_grade(other: Union[int, float, 'Student']):
-        if not isinstance(other, (int, Student)):
+        if not isinstance(other, (int, float, Student)):
             raise TypeError("Сравнение Student возможно только со Student или int")
         other_average_grade = other if type(other) in [int, float] else other._get_average_grade()
         return other_average_grade
