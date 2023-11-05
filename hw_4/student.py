@@ -19,19 +19,19 @@ class Student(User):
         return f'{str_parent} (студент)'
 
     def __lt__(self, other: Union[int, float, 'Student']):
-        other_grade = Student._get_other_average_garde(other)
+        other_grade = Student._get_other_average_grade(other)
         return self._get_average_grade() < other_grade
 
     def __gt__(self, other: Union[int, float, 'Student']):
-        other_grade = Student._get_other_average_garde(other)
+        other_grade = Student._get_other_average_grade(other)
         return self._get_average_grade() > other_grade
 
     def __le__(self, other: Union[int, float, 'Student']):
-        other_grade = Student._get_other_average_garde(other)
+        other_grade = Student._get_other_average_grade(other)
         return self._get_average_grade() <= other_grade
 
     def __ge__(self, other: Union[int, float, 'Student']):
-        other_grade = Student._get_other_average_garde(other)
+        other_grade = Student._get_other_average_grade(other)
         return self._get_average_grade() >= other_grade
 
     def add_grades(self, grades: Iterable[int]):
@@ -44,13 +44,13 @@ class Student(User):
 
     def _get_average_grade(self):
         try:
-            average_garde = sum(self._grades) / len(self._grades)
+            average_grade = sum(self._grades) / len(self._grades)
         except ZeroDivisionError:
-            average_garde = 0
-        return average_garde
+            average_grade = 0
+        return average_grade
 
     @staticmethod
-    def _get_other_average_garde(other: Union[int, float, 'Student']):
+    def _get_other_average_grade(other: Union[int, float, 'Student']):
         if not isinstance(other, (int, Student)):
             raise TypeError("Сравнение Student возможно только со Student или int")
         other_average_grade = other if type(other) in [int, float] else other._get_average_grade()
