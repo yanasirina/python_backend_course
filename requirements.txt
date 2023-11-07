@@ -1,3 +1,5 @@
 python-crontab==3.0.0
 python-dotenv==1.0.0
 zope==5.5.0
+aiohttp==3.8.6
+httpx==0.25.1
