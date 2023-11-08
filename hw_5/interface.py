@@ -21,11 +21,12 @@ class SimplePaginator:
         return [self.object_list[i:i+self.chunk_size] for i in range(0, len(self.object_list), self.chunk_size)]
 
 
-print(type(PaginatorInterface))    # <class 'zope.interface.interface.InterfaceClass'>
-print(PaginatorInterface.__doc__)    # Интерфейс класса для пагинации списка элементов
-print(PaginatorInterface.implementedBy(SimplePaginator))    # True
+if __name__ == '__main__':
+    print(type(PaginatorInterface))    # <class 'zope.interface.interface.InterfaceClass'>
+    print(PaginatorInterface.__doc__)    # Интерфейс класса для пагинации списка элементов
+    print(PaginatorInterface.implementedBy(SimplePaginator))    # True
 
-simple_paginator = SimplePaginator([i for i in range(100)], 10)
-print(PaginatorInterface.providedBy(simple_paginator))    # True
+    simple_paginator = SimplePaginator([i for i in range(100)], 10)
+    print(PaginatorInterface.providedBy(simple_paginator))    # True
 
-print(simple_paginator.paginate())
+    print(simple_paginator.paginate())
