@@ -1,4 +1,5 @@
 from typing import Union, Iterable
+import statistics
 from user import User
 from teacher import Teacher
 
@@ -8,6 +9,9 @@ class StudentException(Exception):
 
 
 class Student(User):
+    MIN_GRADE = 1
+    MAX_GRADE = 5
+
     def __init__(self, teacher: Teacher, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._grades = []
@@ -35,7 +39,7 @@ class Student(User):
         return self._get_average_grade() >= other_grade
 
     def add_grades(self, grades: Iterable[int]):
-        if not all([1 <= grade <= 5 for grade in grades]):
+        if not all([self.MIN_GRADE <= grade <= self.MAX_GRADE for grade in grades]):
             raise StudentException('Оценки должны быть в диапазоне от 1 до 5')
         self._grades.extend(grades)
 
@@ -44,8 +48,8 @@ class Student(User):
 
     def _get_average_grade(self):
         try:
-            average_grade = sum(self._grades) / len(self._grades)
-        except ZeroDivisionError:
+            average_grade = statistics.mean(self._grades)
+        except statistics.StatisticsError:
             average_grade = 0
         return average_grade
 
