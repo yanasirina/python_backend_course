@@ -3,7 +3,7 @@ import threading
 import requests
 
 
-def get_data_from_url(url: str):
+def print_data_from_url(url: str):
     print(f'start {url}')
     response = requests.get(url)
     print(f'{url} info:\n'
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     threads = []
 
     for url in urls:
-        thread = threading.Thread(target=get_data_from_url, args=(url,))
+        thread = threading.Thread(target=print_data_from_url, args=(url,))
         thread.start()
         threads.append(thread)
 
